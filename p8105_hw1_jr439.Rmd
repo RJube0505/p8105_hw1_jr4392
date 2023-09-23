@@ -1,0 +1,58 @@
+---
+title: "p8105_hw1_jr4392"
+author: "Junyi Ren"
+date: "2023-09-22"
+output: github_document
+---
+
+
+```{r}
+library(moderndive)
+library(tidyverse)
+```
+
+## Problem 1
+
+```{r}
+data("early_january_weather")
+```
+
+The dataset has 15 variables: origin(weather station)/EWR, year/2013, month/1, day/1-15, hour(recorded time)/0-23, temp/temperature in F, dewp/dew point in F, humidity/0-100, wind_dir/wind direction in degrees 0-360, wind_speed/wind speed in mph, precip/precipitation in inches, pressure/sea level pressure in millibars, visib/visibility in miles, and time_hour/recorded date and hour.
+The dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. 
+The mean temperature is `r mean(early_january_weather$temp)`F.
+
+```{r}
+ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) + geom_point()
+ggsave("problem 1 scatterplot.png")
+```
+In this plot, the temperature increased as the day went on. On days with high humidity, the temperature does not change much.
+
+## Problem 2
+
+```{r}
+P2_df = 
+  tibble(
+    ran_sam = rnorm(10),
+    log_vec = ran_sam > 0,
+    cha_vec = as.character(c("a","b","c","d","e","f","g","h","i","j")),
+    fac_vec = factor(c("L1","L2","L3","L1","L2","L3","L1","L2","L3","L1"),
+                     levels = c("L1","L2","L3"))
+    )
+```
+
+```{r}
+mean(pull(P2_df,var=1))
+mean(pull(P2_df,var=2))
+mean(pull(P2_df,var=3))
+mean(pull(P2_df,var=4))
+```
+
+The first and second column can take the mean, which are numeric and logical columns. The last two column cannot take the mean,  character and factor cannot take the mean.
+
+```{r, eval=FALSE}
+as.numeric(pull(P2_df,var=2))
+as.numeric(pull(P2_df,var=3))
+as.numeric(pull(P2_df,var=4))
+```
+
+Logical vector can be converted to numeric values, 1 for true and 0 for false, so the logical vector has a mean.Character vector cannot be converted to numbers.Letters in a character vector do not have numerical meanings, so there are no numbers to represent these characters, and no mean.The numerical values of the factor vector show the levels from 1 to 3. There is no mean for the level values because it is meaningless.
