@@ -47,7 +47,7 @@ mean(pull(P2_df,var=3))
 mean(pull(P2_df,var=4))
 ```
 
-The first and second column can take the mean, which are numeric and logical columns. The last two column cannot take the mean,  character and factor cannot take the mean.
+The first and second column can take the mean, which are numeric and logical columns. The last two column cannot take the mean, because character and factor cannot take the mean.
 
 ```{r, eval=FALSE}
 as.numeric(pull(P2_df,var=2))
